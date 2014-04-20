@@ -3,6 +3,10 @@ use strict;
 my ($SEPARATOR, $NEWLINE) = ("\t", "\n");
 
 my $FN = "msnct128rounds.txt"; #FIXME: should be an argument
+#This file is expected to be tab-delimited, with no header.
+#first and second columns are a game room name and general location
+#subsequent pairs of columns are "cards" of teams facing each other
+
 my $NUM_ROUNDS = -1; #set automatically via schedule parsing
 my $NUM_GAMES_PER_TEAM = 8;
 my $NUM_SIMULATIONS = 10000;
@@ -82,6 +86,7 @@ sub load_the_match {
 		,ERROR_LABEL => $round." - ".$room." (".$t1." vs ".$t2.")"
 	};
 
+	#FIXME: pass hashes by reference into a function
 	if(exists $h_card_round_to_match{join($SEPARATOR,$t1,$round)}) {
 		die("Card $t1 already has a match in round $round");
 	} else {
@@ -300,6 +305,7 @@ sub cleanup_monte_carlo_iteration {
 }
 
 sub print_the_results {
+	#FIXME: replace with n calls to the same function
 	print MONTECARLO "NUMBER OF SIMULATIONS RUN: ".$NUM_SIMULATIONS.$NEWLINE;
 	print MONTECARLO $NEWLINE;
 	
